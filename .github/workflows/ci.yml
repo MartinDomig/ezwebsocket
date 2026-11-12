@@ -44,15 +44,15 @@ jobs:
       - name: Generate coverage reports
         run: |
           gcovr --root . --filter 'lib/' --print-summary build
-          gcovr --root . --filter 'lib/' --markdown --output coverage.md build
+          gcovr --root . --filter 'lib/' --txt --output coverage.txt build
           gcovr --root . --filter 'lib/' --xml-pretty --output coverage.xml build
-          cat coverage.md >> "$GITHUB_STEP_SUMMARY"
+          cat coverage.txt >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
           name: coverage-openssl-${{ matrix.openssl }}
           path: |
-            coverage.md
+            coverage.txt
             coverage.xml
           if-no-files-found: error
